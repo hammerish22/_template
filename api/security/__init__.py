@@ -1,4 +1,6 @@
-__all__ = ["CORSMiddleware", "SecurityHeadersMiddleware"]
+__all__ = [
+    "middleware",
+]
 
 from .middleware import (
     SecurityHeadersMiddleware
