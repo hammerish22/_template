@@ -64,7 +64,7 @@ BEGIN
         CONTINUE WHEN src_schema <> 'public';
         CONTINUE WHEN src_table = 'alembic_version';
 
-        -- ADD COLUMN: columns in public not yet in audit
+        -- ADD COLUMNS
         FOR col IN
             SELECT
                 c.column_name,
@@ -92,7 +92,7 @@ BEGIN
             );
         END LOOP;
 
-        -- DROP COLUMN: columns in audit (excluding audit_uid) not in public
+        -- DROP COLUMNS
         FOR col IN
             SELECT c.column_name
             FROM information_schema.columns c
@@ -113,7 +113,7 @@ BEGIN
             );
         END LOOP;
 
-        -- ALTER COLUMN TYPE: columns where type differs between public and audit
+        -- ALTER COLUMN TYPES
         FOR col IN
             SELECT
                 p.column_name,
@@ -122,7 +122,7 @@ BEGIN
             FROM information_schema.columns p
             JOIN information_schema.columns a
                 ON a.table_schema = 'audit'
-                AND a.table_name  = src_table
+                AND a.table_name = src_table
                 AND a.column_name = p.column_name
             WHERE p.table_schema = 'public'
                 AND p.table_name = src_table
