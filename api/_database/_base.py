@@ -21,7 +21,7 @@ class Base(DeclarativeBase):
     pass
 
 
-class Audit_Base(Base):
+class _Audit_Base(Base):
     __abstract__ = True
 
     uid: Mapped[str]                    = mapped_column(String(36), primary_key=True, default=uuid.uuid7(), nullable=False)

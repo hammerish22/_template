@@ -3,6 +3,6 @@ __all__ = [
 ]
 
 from ._user import (
-    User_Type,
-    User,
+    _User_Type,
+    _User,
 )

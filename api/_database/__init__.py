@@ -5,7 +5,7 @@ __all__ = [
 
 from ._base import (
     Base,
-    Audit_Base,
+    _Audit_Base,
 )
 
 from ._session import (

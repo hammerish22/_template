@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from api.security import SecurityHeadersMiddleware
 
 from api.routes._root import router as root_router
-from api.database import PG_DATABASE_URL
+from api._database import PG_DATABASE_URL
 
 
 app = FastAPI()
