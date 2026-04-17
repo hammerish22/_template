@@ -2,10 +2,19 @@ CREATE OR REPLACE FUNCTION insert_audit_row()
 RETURNS trigger
 LANGUAGE plpgsql
 AS $$
+DECLARE
+    col_list text;
 BEGIN
+    SELECT string_agg(quote_ident(column_name), ', ' ORDER BY ordinal_position)
+    INTO col_list
+    FROM information_schema.columns
+    WHERE table_schema = 'public'
+        AND table_name = TG_TABLE_NAME;
+
     EXECUTE format(
-        'INSERT INTO audit.%I SELECT ($1).*',
-        TG_TABLE_NAME
+        'INSERT INTO audit.%I (%s) SELECT ($1).*',
+        TG_TABLE_NAME,
+        col_list
     ) USING NEW;
     RETURN NEW;
 END;
