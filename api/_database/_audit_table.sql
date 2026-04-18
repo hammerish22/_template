@@ -21,7 +21,7 @@ BEGIN
         src_table  := split_part(obj.object_identity, '.', 2);
 
         CONTINUE WHEN src_schema <> 'public';
-        CONTINUE WHEN src_table = 'alembic_version';
+        CONTINUE WHEN src_table = '_alembic_version';
 
         EXECUTE format(
             'CREATE TABLE IF NOT EXISTS audit.%I (
@@ -62,7 +62,7 @@ BEGIN
         src_table  := split_part(obj.object_identity, '.', 2);
 
         CONTINUE WHEN src_schema <> 'public';
-        CONTINUE WHEN src_table = 'alembic_version';
+        CONTINUE WHEN src_table = '_alembic_version';
 
         -- ADD COLUMNS
         FOR col IN
@@ -171,7 +171,7 @@ BEGIN
         src_table  := obj.object_name;
 
         CONTINUE WHEN src_schema <> 'public';
-        CONTINUE WHEN src_table = 'alembic_version';
+        CONTINUE WHEN src_table = '_alembic_version';
 
         EXECUTE format(
             'DROP TABLE IF EXISTS audit.%I',
