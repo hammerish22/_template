@@ -1,8 +1,8 @@
 """202604171800 Create User_Type and User
 
-Revision ID: 522a46467d43
+Revision ID: 5ab6d966d52a
 Revises: 
-Create Date: 2026-04-17 18:07:00.061839
+Create Date: 2026-04-18 09:54:37.008714
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '522a46467d43'
+revision: str = '5ab6d966d52a'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -24,6 +24,7 @@ def upgrade() -> None:
     op.create_table('_user_type',
     sa.Column('name', sa.String(length=100), nullable=False),
     sa.Column('description', sa.String(length=255), nullable=True),
+    sa.Column('external_uid', sa.String(length=255), nullable=True),
     sa.Column('uid', sa.String(length=36), nullable=False),
     sa.Column('state', sa.Integer(), nullable=False),
     sa.Column('is_deleted', sa.Boolean(), nullable=False),
@@ -31,13 +32,16 @@ def upgrade() -> None:
     sa.Column('created_user_id', sa.String(length=36), nullable=False),
     sa.Column('modified_datetime', sa.DateTime(), nullable=False),
     sa.Column('modified_user_id', sa.String(length=36), nullable=False),
-    sa.PrimaryKeyConstraint('uid')
+    sa.PrimaryKeyConstraint('uid'),
+    sa.UniqueConstraint('external_uid'),
+    sa.UniqueConstraint('name')
     )
     op.create_table('_user',
     sa.Column('user_type_uid', sa.String(length=36), nullable=False),
-    sa.Column('username', sa.String(length=100), nullable=False),
+    sa.Column('first_name', sa.String(length=100), nullable=False),
+    sa.Column('last_name', sa.String(length=100), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
-    sa.Column('password_hash', sa.String(length=255), nullable=False),
+    sa.Column('external_uid', sa.String(length=255), nullable=True),
     sa.Column('uid', sa.String(length=36), nullable=False),
     sa.Column('state', sa.Integer(), nullable=False),
     sa.Column('is_deleted', sa.Boolean(), nullable=False),
@@ -48,7 +52,7 @@ def upgrade() -> None:
     sa.ForeignKeyConstraint(['user_type_uid'], ['_user_type.uid'], ),
     sa.PrimaryKeyConstraint('uid'),
     sa.UniqueConstraint('email'),
-    sa.UniqueConstraint('username')
+    sa.UniqueConstraint('external_uid')
     )
     # ### end Alembic commands ###
 

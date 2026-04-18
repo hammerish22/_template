@@ -1,8 +1,8 @@
 """202604181000 Create Counterparty_Type and Counterparty
 
-Revision ID: a5b68d5e699d
-Revises: 522a46467d43
-Create Date: 2026-04-18 09:43:04.018887
+Revision ID: f698f8b2cbf3
+Revises: 5ab6d966d52a
+Create Date: 2026-04-18 09:59:08.773653
 
 """
 from typing import Sequence, Union
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision: str = 'a5b68d5e699d'
-down_revision: Union[str, Sequence[str], None] = '522a46467d43'
+revision: str = 'f698f8b2cbf3'
+down_revision: Union[str, Sequence[str], None] = '5ab6d966d52a'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
