@@ -4,17 +4,18 @@ from typing import List
 
 from sqlalchemy import (
     ForeignKey, 
-    String
+    String,
 )
 
 from sqlalchemy.orm import (
     Mapped,
     declared_attr,
     mapped_column,
-    relationship
+    relationship,
 )
 
 from api._database import _Audit_Base
+
 
 class _User_Type(_Audit_Base):
     __abstract__ = True

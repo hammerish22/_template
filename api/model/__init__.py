@@ -1,5 +1,6 @@
 __all__ = [
     "_user",
+    "_counterparty",
 ]
 
 from ._user import (
